@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>周涛 · 采访</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* 背景图片层 */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-image: url('zt.jpg');
+            background-size: cover;
+            background-position: center 20%;
+            background-repeat: no-repeat;
+            opacity: 0.25;
+            transition: opacity 0.15s ease;
+        }
+
+        /* 主容器 —— 更透、更宽 */
+        .container {
+            max-width: 1300px;
+            width: 95%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            padding: 24px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* 标题与搜索框并排 */
+        .title-search-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: #2c3e50;
+            letter-spacing: 2px;
+            margin: 0;
+            text-shadow: 1px 1px 4px rgba(255,255,255,0.8);
+        }
+
+        /* 搜索框样式 */
+        .search-box {
+            flex: 1;
+            min-width: 280px;
+            max-width: 450px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 1.5px solid rgba(230, 126, 34, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            outline: none;
+            transition: all 0.25s;
+            color: #2c3e50;
+        }
+
+        .search-box input:focus {
+            border-color: #e67e22;
+            box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-box input::placeholder {
+            color: #5a6c7d;
+        }
+
+        /* 副标题 + 滑块并排 */
+        .subtitle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .subtitle {
+            color: #2c3e50;
+            font-size: 1rem;
+            border-left: 4px solid #e67e22;
+            padding-left: 14px;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(255,255,255,0.5);
+        }
+
+        .opacity-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 8px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        .opacity-control label {
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .opacity-control input {
+            width: 180px;
+            cursor: pointer;
+            accent-color: #e67e22;
+        }
+
+        .opacity-control span {
+            min-width: 45px;
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        /* 统计信息 */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            color: #2c3e50;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 40px 20px;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.3);
+            border-radius: 16px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* 内容列表 */
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .content-item {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 18px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.25s;
+            border: 1px solid rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+
+        .content-item:hover {
+            background: rgba(255, 255, 255, 0.75);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #e67e22;
+        }
+
+        /* 封面图 */
+        .item-cover {
+            width: 100px;
+            height: 70px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.8);
+            background: #ddd;
+            flex-shrink: 0;
+        }
+
+        /* 信息区域 */
+        .item-info {
+            flex: 1;
+        }
+
+        .item-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1e2b38;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+        }
+
+        .item-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            color: #3a4c5c;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* 类型标签 */
+        .type-badge {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #2c3e50;
+            backdrop-filter: blur(2px);
+        }
+
+        .type-badge.video {
+            background: #d4e6f1;
+            color: #1a5276;
+        }
+
+        .type-badge.article {
+            background: #fdebd0;
+            color: #a04000;
+        }
+
+        .platform-badge {
+            background: rgba(0,0,0,0.05);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #2c3e50;
+            backdrop-filter: blur(2px);
+        }
+
+        .external-icon {
+            opacity: 0.6;
+            transition: opacity 0.2s;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-left: 5px;
+        }
+
+        .content-item:hover .external-icon {
+            opacity: 1;
+            color: #e67e22;
+        }
+
+        .footer {
+            margin-top: 24px;
+            text-align: right;
+            color: #2c3e50;
+            font-size: 0.8rem;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+            padding-top: 16px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+        }
+
+        .highlight {
+            background-color: #f9e79f;
+            padding: 0 2px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .container {
+                padding: 18px 16px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .title-search-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            .subtitle-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .content-item {
+                flex-wrap: wrap;
+            }
+            .item-cover {
+                width: 100%;
+                height: 120px;
+            }
+            .item-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .opacity-control {
+                width: 100%;
+            }
+            .opacity-control input {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景图片 (可替换为周涛老师照片) -->
+    <div class="bg-image" id="bgImage"></div>
+
+    <div class="container">
+        <!-- 第一行：标题 + 搜索框并排 -->
+        <div class="title-search-row">
+            <h1>周涛 · 访谈</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索视频/文章关键词..." autocomplete="off">
+            </div>
+        </div>
+
+        <!-- 第二行：副标题 + 透明度调节并排 -->
+        <div class="subtitle-row">
+            <div class="subtitle">不完全记录 · 如有遗漏联系 15235513525@163.com</div>
+            <div class="opacity-control">
+                <label>背景透明度</label>
+                <input type="range" id="opacitySlider" min="0.05" max="1" step="0.01" value="0.323">
+                <span id="opacityValue">32.3%</span>
+            </div>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="stats">
+            <span id="resultCount">共 0 项内容</span>
+            <span>版权归原作者所有</span>
+        </div>
+
+        <!-- 内容列表容器 -->
+        <div id="contentList" class="content-list"></div>
+
+        <!-- 无结果提示 -->
+        <div id="noResultMsg" class="no-result" style="display: none;">
+            没有找到匹配的内容，试试其他关键词吧~
+        </div>
+
+        <div class="footer">
+            周涛老师采访合集 · 含视频及文字专访
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            "use strict";
+
+            // ---------- 数据：视频 + 文章 (支持微信公众号、微博文章等) ----------
+            const contentData = [
+                // 视频类 (B站/微博视频)
+                {
+                    id: 1,
+                    type: 'video',
+                    title: '河北邯郸"鸡窝头"讲解员回应陪同周涛走红',
+                    platform: 'bilibili',
+                    platformName: 'B站',
+                    url: 'https://www.bilibili.com/video/BV1Htr8YhE5Y/',
+                    cover: 'https://i0.hdslb.com/bfs/archive/9f7d9f7c6f7d9f7c6f7d9f7c6f7d9f7c6f7d9f7c.jpg'
+                },                
+                {
+                    id: 4,
+                    type: 'video',
+                    title: '#周濤春晚最後一句話#',
+                    platform: 'weibo',
+                    platformName: '微博',
+                    date: '2024-03-21',
+                    url: 'https://tw.weibo.com/2387903701/O63jT0DSD',
+                    description: '周涛在採訪中自述，春晚最後一句話從"明年再見"變成了"再見"',
+                    cover: 'https://wx1.sinaimg.cn/large/0085YwK8ly1hnzabc1234j30u00mi0va.jpg'
+                },
+                // 文字采访类 (微信公众号 / 微博文章)
+                {
+                    id: 8,
+                    type: 'article',
+                    title: '周涛：从央视主持人到文艺管理者，她的转型之路',
+                    platform: 'weixin',
+                    platformName: '微信公众号',
+                    date: '2023-09-12',
+                    url: 'https://mp.weixin.qq.com/s/example-link-1',
+                    description: '深度对话周涛，谈保利文化任职后的心路历程与行业观察',
+                    cover: '' // 无封面图，将显示占位图
+                },
+                {
+                    id: 9,
+                    type: 'article',
+                    title: '专访周涛：我从未离开过舞台，只是换了一种表达方式',
+                    platform: 'weibo',
+                    platformName: '微博文章',
+                    date: '2022-11-05',
+                    url: 'https://weibo.com/ttarticle/p/show?id=2309404832587496358068',
+                    description: '谈及主持、制片、话剧的多重身份，以及对于年龄的坦然',
+                    cover: 'https://wx2.sinaimg.cn/large/006mPWyNly1h0abcdefg30j30rs0ijmyz.jpg'
+                },
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {
+                    id: 1,
+                    type: 'video',
+                    title: '星耀华夏年味纪 | 四世同堂 享喜乐延年 2024',
+                    platform: 'bilibili',
+                    platformName: 'B站',
+                    url: 'https://www.bilibili.com/video/BV1S7421P7Uv/',
+                    cover: 'https://i2.hdslb.com/bfs/archive/3b4ebe5574a5cf5120c43a346ce3f8bed6d3a842.jpg'
+                },
+                {
+                    id: 1,
+                    type: 'video',
+                    title: '问道纪录片cut 2024',
+                    platform: 'bilibili',
+                    platformName: 'B站',
+                    url: 'https://www.bilibili.com/video/BV1bqmiY3Eu3/',
+                    cover: 'https://i2.hdslb.com/bfs/archive/fdf628326f3c5da33fcba363b1c74386cfbd787a.jpg'
+                }
+            ];
+
+            // DOM 元素
+            const bgImage = document.getElementById('bgImage');
+            const opacitySlider = document.getElementById('opacitySlider');
+            const opacitySpan = document.getElementById('opacityValue');
+            const searchInput = document.getElementById('searchInput');
+            const contentListEl = document.getElementById('contentList');
+            const noResultMsg = document.getElementById('noResultMsg');
+            const resultCountSpan = document.getElementById('resultCount');
+
+            // 背景透明度控制
+            function updateOpacity(value) {
+                const opacity = parseFloat(value);
+                bgImage.style.opacity = opacity;
+                opacitySpan.textContent = Math.round(opacity * 100) + '%';
+            }
+            opacitySlider.addEventListener('input', (e) => updateOpacity(e.target.value));
+            updateOpacity(opacitySlider.value);
+
+            // 高亮关键词
+            function highlightText(text, keyword) {
+                if (!keyword || keyword.trim() === '') return text;
+                try {
+                    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`(${escaped})`, 'gi');
+                    return text.replace(regex, '<span class="highlight">$1</span>');
+                } catch(e) {
+                    return text;
+                }
+            }
+
+            // 生成占位封面 (SVG)
+            function getPlaceholderCover(platformName, type) {
+                const bgColor = type === 'video' ? '#d4e6f1' : '#fdebd0';
+                const text = type === 'video' ? '🎬 视频' : '📄 文章';
+                return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='70' viewBox='0 0 100 70'%3E%3Crect width='100' height='70' fill='%23${bgColor.slice(1)}'/%3E%3Ctext x='50' y='40' font-size='12' fill='%232c3e50' text-anchor='middle' font-family='sans-serif'%3E${text}%3C/text%3E%3Ctext x='50' y='55' font-size='10' fill='%235a6c7d' text-anchor='middle' font-family='sans-serif'%3E${platformName}%3C/text%3E%3C/svg%3E`;
+            }
+
+            // 渲染列表
+            function renderList() {
+                const keyword = searchInput.value.trim();
+                
+                let filtered = contentData;
+                if (keyword !== '') {
+                    filtered = contentData.filter(item => 
+                        item.title.toLowerCase().includes(keyword.toLowerCase()) 
+                    );
+                }
+
+                const total = filtered.length;
+                resultCountSpan.textContent = keyword ? `找到 ${total} 项内容` : `共 ${contentData.length} 项内容`;
+
+                if (total === 0) {
+                    contentListEl.innerHTML = '';
+                    noResultMsg.style.display = 'block';
+                    return;
+                }
+                noResultMsg.style.display = 'none';
+
+                let html = '';
+                filtered.forEach(item => {
+                    let displayTitle = item.title;
+                    let displayDesc = item.description;
+                    if (keyword) {
+                        displayTitle = highlightText(item.title, keyword);
+                        displayDesc = highlightText(item.description, keyword);
+                    }
+
+                    // 处理封面
+                    let coverSrc = item.cover;
+                    if (!coverSrc || coverSrc === '') {
+                        coverSrc = getPlaceholderCover(item.platformName, item.type);
+                    }
+
+                    const typeLabel = item.type === 'video' ? '📹 视频' : '📄 文章';
+                    const typeClass = item.type;
+
+                    html += `
+                        <div class="content-item" data-url="${item.url}">
+                            <img class="item-cover" src="${coverSrc}" alt="${item.platformName}封面" 
+                                 onerror="this.onerror=null; this.src='${getPlaceholderCover(item.platformName, item.type)}';">
+                            <div class="item-info">
+                                <div class="item-title">${displayTitle}</div>
+                                <div class="item-meta">
+                                    
+                                    <span class="type-badge ${typeClass}">${typeLabel}</span>
+                                    <span class="platform-badge">${item.platformName}</span>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    `;
+                });
+
+                contentListEl.innerHTML = html;
+
+                document.querySelectorAll('.content-item').forEach(item => {
+                    item.addEventListener('click', function(e) {
+                        const url = this.dataset.url;
+                        if (url) window.open(url, '_blank');
+                    });
+                });
+            }
+
+            searchInput.addEventListener('input', renderList);
+            renderList();
+        })();
+    </script>
+</body>
+</html>
