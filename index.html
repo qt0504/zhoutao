@@ -42,7 +42,7 @@
         .container {
             max-width: 1300px;
             width: 95%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.23);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 24px;
@@ -339,7 +339,7 @@
 </head>
 <body>
 
-    <!-- 背景图片 (可替换为周涛老师照片) -->
+    <!-- 背景图片 (可替换) -->
     <div class="bg-image" id="bgImage"></div>
 
     <div class="container">
@@ -356,8 +356,8 @@
             <div class="subtitle">不完全记录 · 如有遗漏联系 15235513525@163.com</div>
             <div class="opacity-control">
                 <label>背景透明度</label>
-                <input type="range" id="opacitySlider" min="0.05" max="1" step="0.01" value="0.323">
-                <span id="opacityValue">32.3%</span>
+                <input type="range" id="opacitySlider" min="0.05" max="1" step="0.01" value="0.5">
+                <span id="opacityValue">50%</span>
             </div>
         </div>
 
@@ -387,49 +387,49 @@
             // ---------- 数据：视频 + 文章 (支持微信公众号、微博文章等) ----------
             const contentData = [
                 // 视频类 (B站/微博视频)
-                {
-                    id: 1,
-                    type: 'video',
-                    title: '河北邯郸"鸡窝头"讲解员回应陪同周涛走红',
-                    platform: 'bilibili',
-                    platformName: 'B站',
-                    url: 'https://www.bilibili.com/video/BV1Htr8YhE5Y/',
-                    cover: 'https://i0.hdslb.com/bfs/archive/9f7d9f7c6f7d9f7c6f7d9f7c6f7d9f7c6f7d9f7c.jpg'
-                },                
-                {
-                    id: 4,
-                    type: 'video',
-                    title: '#周濤春晚最後一句話#',
-                    platform: 'weibo',
-                    platformName: '微博',
-                    date: '2024-03-21',
-                    url: 'https://tw.weibo.com/2387903701/O63jT0DSD',
-                    description: '周涛在採訪中自述，春晚最後一句話從"明年再見"變成了"再見"',
-                    cover: 'https://wx1.sinaimg.cn/large/0085YwK8ly1hnzabc1234j30u00mi0va.jpg'
-                },
-                // 文字采访类 (微信公众号 / 微博文章)
-                {
-                    id: 8,
-                    type: 'article',
-                    title: '周涛：从央视主持人到文艺管理者，她的转型之路',
-                    platform: 'weixin',
-                    platformName: '微信公众号',
-                    date: '2023-09-12',
-                    url: 'https://mp.weixin.qq.com/s/example-link-1',
-                    description: '深度对话周涛，谈保利文化任职后的心路历程与行业观察',
-                    cover: '' // 无封面图，将显示占位图
-                },
-                {
-                    id: 9,
-                    type: 'article',
-                    title: '专访周涛：我从未离开过舞台，只是换了一种表达方式',
-                    platform: 'weibo',
-                    platformName: '微博文章',
-                    date: '2022-11-05',
-                    url: 'https://weibo.com/ttarticle/p/show?id=2309404832587496358068',
-                    description: '谈及主持、制片、话剧的多重身份，以及对于年龄的坦然',
-                    cover: 'https://wx2.sinaimg.cn/large/006mPWyNly1h0abcdefg30j30rs0ijmyz.jpg'
-                },
+                // {
+                //     id: 1,
+                //     type: 'video',
+                //     title: '河北邯郸"鸡窝头"讲解员回应陪同周涛走红',
+                //     platform: 'bilibili',
+                //     platformName: 'B站',
+                //     url: 'https://www.bilibili.com/video/BV1Htr8YhE5Y/',
+                //     cover: 'https://i0.hdslb.com/bfs/archive/9f7d9f7c6f7d9f7c6f7d9f7c6f7d9f7c6f7d9f7c.jpg'
+                // },                
+                // {
+                //     id: 4,
+                //     type: 'video',
+                //     title: '#周濤春晚最後一句話#',
+                //     platform: 'weibo',
+                //     platformName: '微博',
+                //     date: '2024-03-21',
+                //     url: 'https://tw.weibo.com/2387903701/O63jT0DSD',
+                //     description: '周涛在採訪中自述，春晚最後一句話從"明年再見"變成了"再見"',
+                //     cover: 'https://wx1.sinaimg.cn/large/0085YwK8ly1hnzabc1234j30u00mi0va.jpg'
+                // },
+                // // 文字采访类 (微信公众号 / 微博文章)
+                // {
+                //     id: 8,
+                //     type: 'article',
+                //     title: '周涛：从央视主持人到文艺管理者，她的转型之路',
+                //     platform: 'weixin',
+                //     platformName: '微信公众号',
+                //     date: '2023-09-12',
+                //     url: 'https://mp.weixin.qq.com/s/example-link-1',
+                //     description: '深度对话周涛，谈保利文化任职后的心路历程与行业观察',
+                //     cover: '' // 无封面图，将显示占位图
+                // },
+                // {
+                //     id: 9,
+                //     type: 'article',
+                //     title: '专访周涛：我从未离开过舞台，只是换了一种表达方式',
+                //     platform: 'weibo',
+                //     platformName: '微博文章',
+                //     date: '2022-11-05',
+                //     url: 'https://weibo.com/ttarticle/p/show?id=2309404832587496358068',
+                //     description: '谈及主持、制片、话剧的多重身份，以及对于年龄的坦然',
+                //     cover: 'https://wx2.sinaimg.cn/large/006mPWyNly1h0abcdefg30j30rs0ijmyz.jpg'
+                // },
 
 
 
@@ -449,12 +449,44 @@
 
 
 
-
-
-
-
                 {
-                    id: 1,
+                    id: 6,
+                    type: 'video',
+                    title: '走进幕后',
+                    platform: 'bilibili',
+                    platformName: 'B站',
+                    url: 'https://www.bilibili.com/video/BV1ws411L7ed/',
+                    cover: 'https://i0.hdslb.com/bfs/archive/82954f6f9d4ba35537360005c0a714d730f163d3.jpg'
+                },
+                {
+                    id: 5,
+                    type: 'video',
+                    title: '北京青年报文化视频直播栏目《后台》专访 20200809',
+                    platform: 'bilibili',
+                    platformName: 'B站',
+                    url: 'https://www.bilibili.com/video/BV1wv411i7TM/',
+                    cover: 'https://i1.hdslb.com/bfs/archive/1a984b1658dcfcf8c44be5613022a1a91a24f4f8.jpg'
+                },
+                {
+                    id: 4,
+                    type: 'video',
+                    title: '《我们有一套》主持人周涛、导演倪兵CNTV访谈',
+                    platform: 'bilibili',
+                    platformName: 'B站',
+                    url: 'https://www.bilibili.com/video/BV18Z4y1g7ZG/',
+                    cover: 'https://i1.hdslb.com/bfs/archive/b3c85ef92195dee2d2d2738c88b5fcc315d1c8f1.jpg'
+                },
+                {
+                    id: 3,
+                    type: 'video',
+                    title: 'TOM访谈 2005',
+                    platform: 'bilibili',
+                    platformName: 'B站',
+                    url: 'https://www.bilibili.com/video/BV1bs411Q7Xh/',
+                    cover: 'https://i2.hdslb.com/bfs/archive/2dab0cdb200423e831e6457d5874f42de3c4e04f.jpg'
+                },
+                {
+                    id: 2,
                     type: 'video',
                     title: '星耀华夏年味纪 | 四世同堂 享喜乐延年 2024',
                     platform: 'bilibili',
